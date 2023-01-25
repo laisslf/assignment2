@@ -1,3 +1,11 @@
+/********************************************************************************* 
+ * WEB422 – Assignment 2 
+ *  I declare that this assignment is my own work in accordance with Seneca Academic Policy. 
+ *  No part of this assignment has been copied manually or electronically from any other source 
+ *  (including web sites) or distributed to other students. 
+ *  
+ *  Name: Lais da Silva Lopes Furtado Student ID: 127799211 Date:24/01/2023  
+ ********************************************************************************/
 var page = 1;
 var perPage = 10;
 function loadMovieData(title = null){
