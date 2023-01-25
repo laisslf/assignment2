@@ -1,21 +1,18 @@
-let page = 1;
-let perPage = 10;
+var page = 1;
+var perPage = 10;
 function loadMovieData(title = null){
-    let url = +title
-          ? `https://cute-rose-xerus-cuff.cyclic.app/api/movies?page=1&perPage=1&title=${+title}`
-          : `https://cute-rose-xerus-cuff.cyclic.app/api/movies?page=${page}&perPage=${perPage}`;
+    let url = `${title? `https://cute-rose-xerus-cuff.cyclic.app/api/movies?page=1&perPage=1&title=${title}` 
+          : `https://cute-rose-xerus-cuff.cyclic.app/api/movies?page=${page}&perPage=${perPage}`}`;
     
-    let visible =  document.querySelector(".pagination");
-    visible.classList.add("d-none");
-    visible.classList.toggle("visible", title = null);
+    document.querySelector(".pagination").classList.toggle("d-none", title != null);    
     fetch(url).then((res) => res.json())
     .then((data) => {
-        let rows = `${data.map(movie =>(
-            `<tr data-id=${movie._id}>
+        let rows = `${data.map(movie =>(            
+          `<tr data-id=${movie._id}>
             <td>${movie.year}</td>
-            <td>${movie.title}</td>
-            <td>${movie.plot}</td>
-            <td>${movie.rated}</td>
+            <td>${movie.title}</td> 
+            ${movie.plot? `<td>${movie.plot}</td>` : `<td>N/A</td>` }
+            ${movie.rated? `<td>${movie.rated}</td>` : `<td>N/A</td>`} 
             <td>${Math.floor(movie.runtime / 60)}:${(movie.runtime % 60).toString().padStart(2, '0')}</td>
             </tr>`
         )).join('')}`;       
@@ -49,7 +46,22 @@ document.addEventListener("DOMContentLoaded", function(){
     loadMovieData();
     document.querySelector("#searchForm").addEventListener("submit", function(e){
       e.preventDefault();
-      let title = document.querySelector("#title").value;
+      let title = document.querySelector("#title").value;     
       loadMovieData(title);
+    });
+    document.querySelector("#previous-page").addEventListener("click", function(e){
+      if(page > 1){
+        page--;
+        loadMovieData();
+      }
+    });
+    document.querySelector("#next-page").addEventListener("click", function(e){
+        page++;
+        loadMovieData();      
+    });
+    document.querySelector("#clearForm").addEventListener("click", function(e){
+      document.querySelector("#title").value = "";
+      page = 1;      
+      loadMovieData();
     });
   });
