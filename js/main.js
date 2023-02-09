@@ -9,7 +9,7 @@
 var page = 1;
 var perPage = 10;
 function loadMovieData(title = null){
-    let url = `${title? `https://cute-rose-xerus-cuff.cyclic.app/api/movies?page=1&perPage=1&title=${title}` 
+    let url = `${title? `https://cute-rose-xerus-cuff.cyclic.app/api/movies?page=1&perPage=10&title=${title}` 
           : `https://cute-rose-xerus-cuff.cyclic.app/api/movies?page=${page}&perPage=${perPage}`}`;
     
     document.querySelector(".pagination").classList.toggle("d-none", title != null);    
